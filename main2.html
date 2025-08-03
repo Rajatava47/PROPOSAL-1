@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Birthday Present</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #ffc0cb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+    }
+    .btn {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 18px 30px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 12px;
+    }
+    .animated-text {
+      font-size: 30px;
+      font-weight: bold;
+      color: darkred;
+      margin-bottom: 15px;
+    }
+    #noBtn {
+      transition: all 0.3s ease;
+    }
+    .gif-container img {
+      width: 220px;
+      margin-top: 20px;
+    }
+    .centered-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .proposal-screen {
+      background-image: url('main window.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .btn-container {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="centered-container" id="mainContent">
+    <h1 class="animated-text">Hi Alisha...</h1>
+    <p style="font-size: 22px;">Good Morning, I want to tell you something...</p>
+    <button class="btn" onclick="nextScreen()">Okay, tell me 💬</button>
+    <div class="gif-container">
+      <img src="firstpage.gif" alt="First Page GIF" />
+    </div>
+  </div>
+
+  <script>
+    let bgMusic;
+
+    function playMusicOnce() {
+      if (!bgMusic) {
+        bgMusic = new Audio("proposal.mp3");
+        bgMusic.loop = true;
+        bgMusic.play().catch(() => {});
+      }
+    }
+
+    function nextScreen() {
+      playMusicOnce();
+      document.body.innerHTML = `
+        <div class="centered-container">
+          <h1 class="animated-text">Do you know that today is my birthday?? 🎉</h1>
+          <p style="font-size: 22px;">And I want a chotto gift from you... 🥰<br>Will you give it? 🎁</p>
+          <button class="btn" onclick="giftBox()">Yes 🎁</button>
+          <button class="btn" onclick="noGift()">No 🙁</button>
+          <img src="SCREEN2.gif" alt="Birthday GIF" style="width:200px; margin-top:20px;" />
+        </div>
+      `;
+    }
+
+    function noGift() {
+      document.body.innerHTML = `
+        <div class="centered-container">
+          <h1 class="animated-text">Pleaseeeeee 😫😫😫</h1>
+          <button class="btn" onclick="giftBox()">Achaa 😊</button>
+          <img src="SCREEN3.gif" alt="Sad GIF" style="width:200px; margin-top:20px;" />
+          <button class="btn" id="noBtn" onmouseenter="moveNo()">No 🔪</button>
+        </div>
+      `;
+    }
+
+    function moveNo() {
+      const btn = document.getElementById("noBtn");
+      const x = Math.floor(Math.random() * (window.innerWidth - 150));
+      const y = Math.floor(Math.random() * (window.innerHeight - 70));
+      btn.style.position = "absolute";
+      btn.style.left = `${x}px`;
+      btn.style.top = `${y}px`;
+    }
+
+    function giftBox() {
+      document.body.innerHTML = `
+        <div class="centered-container">
+          <h2 style="font-size: 26px;">Tap the gift to see the Surprise!</h2>
+          <img src="gift.jpg" style="width:120px; cursor:pointer; margin-top:20px;" onclick="openProposal()">
+        </div>
+      `;
+    }
+
+    function openProposal() {
+      playMusicOnce();
+      document.body.innerHTML = `
+        <div class="proposal-screen">
+          <h1 class="animated-text">Will you be mine? 💖</h1>
+          <div class="btn-container">
+            <button class="btn" onclick="yesClicked()">Yes 💘</button>
+            <button class="btn" id="noBtn" onmouseenter="moveNo()">No 💔</button>
+          </div>
+          <p style="font-size: 24px; color: white; margin-top: 30px;">Ab toh maan jao yaar... 🥺</p>
+        </div>
+      `;
+    }
+
+    function yesClicked() {
+      document.body.innerHTML = `
+        <div class="centered-container">
+          <h1 class="animated-text">I LOVE YOU ALISHA ❤️</h1>
+        </div>
+      `;
+    }
+
+    document.body.addEventListener('click', playMusicOnce);
+  </script>
+</body>
+</html>
